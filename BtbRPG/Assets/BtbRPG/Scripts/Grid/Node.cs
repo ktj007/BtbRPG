@@ -11,6 +11,8 @@ namespace btbrpg.grid
 
 		public bool isWalkable;
 		public Vector3 worldPosition;
+
 		public GridObject obstacle;
-	}
+        public GameObject tileVisualization;
+    }
 }
