@@ -96,35 +96,34 @@ namespace btbrpg.grid
 					tp.z += z * xzScale + .5f;
 
 					n.worldPosition = tp;
-                    n.isWalkable = true; // TODO: remove this on uncommeting other code!
 
-					//Collider[] overlapNode = Physics.OverlapBox(tp, nodeExtents/2, Quaternion.identity);
+                    Collider[] overlapNode = Physics.OverlapBox(tp, nodeExtents / 2, Quaternion.identity);
 
-					//if (overlapNode.Length > 0)
-					//{
-					//	bool isWalkable = false;
+                    if (overlapNode.Length > 0)
+                    {
+                        bool isWalkable = false;
 
-					//	for (int i = 0; i < overlapNode.Length; i++)
-					//	{
-					//		GridObject obj = overlapNode[i].transform.GetComponentInChildren<GridObject>();
-					//		if (obj != null)
-					//		{
-					//			if (obj.isWalkable && n.obstacle == null)
-					//			{
-					//				isWalkable = true;
-					//			}
-					//			else
-					//			{
-					//				isWalkable = false;
-					//				n.obstacle = obj;
-					//			}
-					//		}
-					//	}
+                        for (int i = 0; i < overlapNode.Length; i++)
+                        {
+                            GridObject obj = overlapNode[i].transform.GetComponentInChildren<GridObject>();
+                            if (obj != null)
+                            {
+                                if (obj.isWalkable && n.obstacle == null)
+                                {
+                                    isWalkable = true;
+                                }
+                                else
+                                {
+                                    isWalkable = false;
+                                    n.obstacle = obj;
+                                }
+                            }
+                        }
 
-					//	n.isWalkable = isWalkable;
-					//}
+                        n.isWalkable = isWalkable;
+                    }
 
-					if (n.isWalkable)
+                    if (n.isWalkable)
 					{
 						nodeVisualization.Add(n.worldPosition);
 					}
