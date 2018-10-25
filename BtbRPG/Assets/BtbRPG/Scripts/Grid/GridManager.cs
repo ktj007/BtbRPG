@@ -8,7 +8,7 @@ namespace btbrpg.grid
 	{
 
 		#region Variables
-		private Node[,] grid;
+		private Node[,,] grid;
 
         [SerializeField] private float xzScale = 1.5f;
 		[SerializeField] private float yScale = 2;
@@ -19,8 +19,9 @@ namespace btbrpg.grid
         private int maxZ;
         private int maxY;
 
-        private int dim_x;
-        private int dim_z;
+        private int dimensionX;
+        private int dimensionZ;
+        private int dimensionY;
 
 
         List<Vector3> nodeVisualization = new List<Vector3>();
@@ -42,8 +43,10 @@ namespace btbrpg.grid
 			float maxX = float.MinValue;
 			float minZ = minX;
 			float maxZ = maxX;
+            float minY = minX;
+            float maxY = maxX;
 
-			for (int i = 0; i < gp.Length; i++)
+            for (int i = 0; i < gp.Length; i++)
 			{
 				Transform t = gp[i].transform;
 
@@ -67,71 +70,93 @@ namespace btbrpg.grid
 				{
 					maxZ = t.position.z;
 				}
-				#endregion
-			}
+                if (t.position.y < minY)
+                {
+                    minY = t.position.y;
+                }
+
+                if (t.position.y > maxY)
+                {
+                    maxY = t.position.y;
+                }
+                #endregion
+            }
 
 
-			dim_x = Mathf.FloorToInt((maxX - minX) / xzScale);
-			dim_z = Mathf.FloorToInt((maxZ - minZ) / xzScale);
+			dimensionX = Mathf.FloorToInt((maxX - minX) / xzScale);
+			dimensionZ = Mathf.FloorToInt((maxZ - minZ) / xzScale);
+            dimensionY = Mathf.FloorToInt((maxY - minY) / yScale);
 
-			minPos = Vector3.zero;
+            if (dimensionY == 0)
+            {
+                dimensionY = 1;
+            }
+
+            minPos = Vector3.zero;
 			minPos.x = minX;
 			minPos.z = minZ;
-		}
+            minPos.y = minY;
+
+        }
 
 		void CreateGrid()
 		{
-			grid = new Node[dim_x, dim_z];
+			grid = new Node[dimensionX, dimensionY, dimensionZ];
 
-			for (int x = 0; x < dim_x; x++)
-			{
-				for (int z = 0; z < dim_z; z++)
-				{
-					Node n = new Node();
-					n.x = x;
-					n.z = z;
-
-					Vector3 tp = minPos;
-					tp.x += x * xzScale + .5f;
-					tp.z += z * xzScale + .5f;
-
-					n.worldPosition = tp;
-
-                    Collider[] overlapNode = Physics.OverlapBox(tp, nodeExtents / 2, Quaternion.identity);
-
-                    if (overlapNode.Length > 0)
+            for (int y = 0; y < dimensionY; y++)
+            {
+                for (int x = 0; x < dimensionX; x++)
+                {
+                    for (int z = 0; z < dimensionZ; z++)
                     {
-                        bool isWalkable = false;
+                        Node n = new Node();
+                        n.x = x;
+                        n.z = z;
+                        n.y = y;
 
-                        for (int i = 0; i < overlapNode.Length; i++)
+                        Vector3 tp = minPos;
+                        tp.x += x * xzScale;// + .5f;
+                        tp.z += z * xzScale;// + .5f;
+                        tp.y += y * yScale;
+
+                        n.worldPosition = tp;
+
+                        Collider[] overlapNode = Physics.OverlapBox(tp, nodeExtents / 2, Quaternion.identity);
+
+                        if (overlapNode.Length > 0)
                         {
-                            GridObject obj = overlapNode[i].transform.GetComponentInChildren<GridObject>();
-                            if (obj != null)
+                            bool isWalkable = false;
+
+                            for (int i = 0; i < overlapNode.Length; i++)
                             {
-                                if (obj.isWalkable && n.obstacle == null)
+                                GridObject obj = overlapNode[i].transform.GetComponentInChildren<GridObject>();
+                                if (obj != null)
                                 {
-                                    isWalkable = true;
-                                }
-                                else
-                                {
-                                    isWalkable = false;
-                                    n.obstacle = obj;
+                                    if (obj.isWalkable && n.obstacle == null)
+                                    {
+                                        isWalkable = true;
+                                    }
+                                    else
+                                    {
+                                        isWalkable = false;
+                                        n.obstacle = obj;
+                                    }
                                 }
                             }
+
+                            n.isWalkable = isWalkable;
                         }
 
-                        n.isWalkable = isWalkable;
+                        if (n.isWalkable) //  && y > 0) this would only visualize floors above floor zero
+                        {
+                            nodeVisualization.Add(n.worldPosition);
+                        }
+
+                        grid[x, y, z] = n;
                     }
-
-                    if (n.isWalkable)
-					{
-						nodeVisualization.Add(n.worldPosition);
-					}
-
-					grid[x, z] = n;
-				}
-			}
-		}
+                }
+            }
+        }
 
 		private void OnDrawGizmos()
 		{
