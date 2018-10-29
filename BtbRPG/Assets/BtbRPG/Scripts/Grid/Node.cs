@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
+
+using btbrpg.characters;
 
 namespace btbrpg.grid
 {
@@ -14,5 +15,7 @@ namespace btbrpg.grid
 
 		public GridObject obstacle;
         public GameObject tileVisualization;
+
+        public GridCharacter character;
     }
 }

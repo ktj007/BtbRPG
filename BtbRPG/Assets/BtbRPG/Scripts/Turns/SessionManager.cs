@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
+using btbrpg.characters;
 using btbrpg.grid;
+
 
 namespace btbrpg.turns
 {
@@ -18,7 +20,23 @@ namespace btbrpg.turns
         private void Start()
         {
             gridManager.Init();
+            PlaceUnits();
             isInit = true;
+        }
+
+        void PlaceUnits()
+        {
+            GridCharacter[] units = GameObject.FindObjectsOfType<GridCharacter>();
+            foreach (GridCharacter u in units)
+            {
+                Node n = gridManager.GetNode(u.transform.position);
+                if (n != null)
+                {
+                    u.transform.position = n.worldPosition;
+                    n.character = u;
+                    u.currentNode = n;
+                }
+            }
         }
 
         private void Update()
