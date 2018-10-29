@@ -32,7 +32,7 @@ namespace btbrpg.grid
 
         #endregion
 
-        private void Start()
+        public void Init()
         {
             ReadLevel();
             CreateGrid();
@@ -103,7 +103,7 @@ namespace btbrpg.grid
 
         }
 
-        void CreateGrid()
+        private void CreateGrid()
         {
             grid = new Node[dimensionX, dimensionY, dimensionZ];
 
@@ -177,7 +177,7 @@ namespace btbrpg.grid
             }
         }
 
-        Node GetNode(Vector3 wp)
+        public Node GetNode(Vector3 wp)
         {
             Vector3 p = wp - minPos;
             int x = Mathf.RoundToInt(p.x / xzScale);
@@ -187,7 +187,7 @@ namespace btbrpg.grid
             return GetNode(x, y, z);
         }
 
-        Node GetNode(int x, int y, int z)
+        public Node GetNode(int x, int y, int z)
         {
             if (x < 0 || x > dimensionX - 1 || y < 0 || y > dimensionY - 1 || z < 0 || z > dimensionZ - 1)
             {
