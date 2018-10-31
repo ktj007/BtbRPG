@@ -8,7 +8,7 @@ namespace btbrpg.turns
     public class Turn : ScriptableObject
     {
         public PlayerHolder player;
-        int index;
+        public int index;
         public Phase[] phases;
 
         public bool Execute(SessionManager sm)
