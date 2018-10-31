@@ -10,7 +10,7 @@ namespace btbrpg.characters
         public PlayerHolder owner;
         public Node currentNode;
 
-        public void OnInit()
+        public void Init()
         {
             owner.RegisterCharacter(this);
         }

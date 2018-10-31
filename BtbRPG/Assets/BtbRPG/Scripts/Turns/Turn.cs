@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 using btbrpg.holders;
 
@@ -8,18 +9,19 @@ namespace btbrpg.turns
     public class Turn : ScriptableObject
     {
         public PlayerHolder player;
-        public int index;
-        public Phase[] phases;
+
+        [NonSerialized] private int index;
+        private Phase[] phases;
 
         public bool Execute(SessionManager sm)
         {
             bool result = false;
 
-            phases[index].OnStartPhase(sm);
+            phases[index].OnStartPhase(sm, this);
 
-            if (phases[index].IsComplete(sm))
+            if (phases[index].IsComplete(sm, this))
             {
-                phases[index].OnEndPhase(sm);
+                phases[index].OnEndPhase(sm, this);
                 index++;
                 if (index > phases.Length - 1)
                 {

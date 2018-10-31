@@ -8,9 +8,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1458d06c601045a40918e7595c6c2f58, type: 3}
-  m_Name: Local Player
+  m_Script: {fileID: 11500000, guid: c57a92c57995cb74f910b05cf5c7a84d, type: 3}
+  m_Name: New States Tick Phase
   m_EditorClassIdentifier: 
-  stateManagerPrefab: {fileID: 1125485538767794, guid: 272e456a07ad94041b23f64cbbebf4c9,
-    type: 2}
-  characters: []
+  phaseName: States Tick Phase
+  forceExit: 0

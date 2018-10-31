@@ -20,11 +20,20 @@ namespace btbrpg.turns
         private void Start()
         {
             gridManager.Init();
+            InitStateManagers();
             PlaceUnits();
             isInit = true;
         }
 
-        void PlaceUnits()
+        private void InitStateManagers()
+        {
+            foreach (Turn t in turns)
+            {
+                t.player.Init();
+            }
+        }
+
+        private void PlaceUnits()
         {
             GridCharacter[] units = GameObject.FindObjectsOfType<GridCharacter>();
             foreach (GridCharacter u in units)
@@ -36,6 +45,8 @@ namespace btbrpg.turns
                     n.character = u;
                     u.currentNode = n;
                 }
+
+                u.Init();
             }
         }
 

@@ -6,12 +6,12 @@ namespace btbrpg.turns
 	[CreateAssetMenu(menuName = "BtbRPG/Turns/Phases/Idle Phase")]
 	public class IdlePhase : Phase
 	{
-		public override bool IsComplete(SessionManager sm)
+		public override bool IsComplete(SessionManager sm, Turn turn)
 		{
 			return false;
 		}
 
-		public override void OnStartPhase(SessionManager sm)
+		public override void OnStartPhase(SessionManager sm, Turn turn)
 		{
 			if (isInit)
 				return;
@@ -19,7 +19,7 @@ namespace btbrpg.turns
 
 			Debug.Log("Idle Phase started");
 		}
-		public override void OnEndPhase(SessionManager sm)
+		public override void OnEndPhase(SessionManager sm, Turn turn)
 		{
 
 		}

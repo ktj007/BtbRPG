@@ -12,11 +12,11 @@ namespace btbrpg.turns
 
         [System.NonSerialized] protected bool isInit;
 
-        public abstract bool IsComplete(SessionManager sm);
+        public abstract bool IsComplete(SessionManager sm, Turn turn);
 
-		public abstract void OnStartPhase(SessionManager sm);
+		public abstract void OnStartPhase(SessionManager sm, Turn turn);
 
-		public virtual void OnEndPhase(SessionManager sm)
+		public virtual void OnEndPhase(SessionManager sm, Turn turn)
 		{
 			isInit = false;
 			forceExit = false;
