@@ -8,9 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 052416abc3d9bd849b71a26eecda9ed5, type: 3}
-  m_Name: Player Turn
+  m_Script: {fileID: 11500000, guid: 5bc4715e4811c3e43b5a588b771a46b6, type: 3}
+  m_Name: Camera Holder
   m_EditorClassIdentifier: 
-  player: {fileID: 11400000, guid: 57110bd1964a1ed48b8071448d8ea38d, type: 2}
-  phases:
-  - {fileID: 11400000, guid: a1b31cf783b42cb4fbf529be80a4e35a, type: 2}
+  value: {fileID: 0}

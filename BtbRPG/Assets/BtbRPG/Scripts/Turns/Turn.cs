@@ -11,7 +11,7 @@ namespace btbrpg.turns
         public PlayerHolder player;
 
         [NonSerialized] private int index;
-        private Phase[] phases;
+        public Phase[] phases;
 
         public bool Execute(SessionManager sm)
         {

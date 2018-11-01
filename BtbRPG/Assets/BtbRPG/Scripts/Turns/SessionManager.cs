@@ -14,6 +14,7 @@ namespace btbrpg.turns
         public Transform gridObject;
 
         public GridManager gridManager;
+        public float delta;
 
         bool isInit;
 
@@ -54,6 +55,8 @@ namespace btbrpg.turns
         {
             if (!isInit)
                 return;
+
+            delta = Time.deltaTime;
 
             if (turns[turnIndex].Execute(this))
             {

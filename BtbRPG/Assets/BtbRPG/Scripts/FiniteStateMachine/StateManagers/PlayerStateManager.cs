@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
+
+using btbrpg.so;
 
 namespace btbrpg.fsn
 {
@@ -7,10 +8,15 @@ namespace btbrpg.fsn
 	{
 		public override void Init()
 		{
-			State interactions = new State();
-			interactions.actions.Add(new DetectMousePositionAction());
+            VariablesHolder gameVars = Resources.Load("GameVariables") as VariablesHolder;
 
-			State wait = new State();
+            State interactions = new State();
+            interactions.actions.Add(new InputManager(gameVars));
+            interactions.actions.Add(new DetectMousePositionAction());
+            interactions.actions.Add(new MoveCameraTransform(gameVars));
+            
+
+            State wait = new State();
 			currentState = interactions;
 
 			allStates.Add("interactions", interactions);
