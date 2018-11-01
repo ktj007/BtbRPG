@@ -11,9 +11,9 @@ namespace btbrpg.fsn
             VariablesHolder gameVars = Resources.Load("GameVariables") as VariablesHolder;
 
             State interactions = new State();
-            interactions.actions.Add(new InputManager(gameVars));
+            interactions.actions.Add(new InputAction(gameVars));
             interactions.actions.Add(new DetectMousePositionAction());
-            interactions.actions.Add(new MoveCameraTransform(gameVars));
+            interactions.actions.Add(new MoveCameraAction(gameVars));
             
 
             State wait = new State();

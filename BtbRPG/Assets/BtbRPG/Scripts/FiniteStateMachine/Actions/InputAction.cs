@@ -5,11 +5,11 @@ using btbrpg.turns;
 
 namespace btbrpg.fsn
 {
-	public class InputManager : StateAction
+	public class InputAction : StateAction
 	{
 		VariablesHolder varHolder;
 
-		public InputManager(VariablesHolder holder)
+		public InputAction(VariablesHolder holder)
 		{
 			varHolder = holder;
 		}

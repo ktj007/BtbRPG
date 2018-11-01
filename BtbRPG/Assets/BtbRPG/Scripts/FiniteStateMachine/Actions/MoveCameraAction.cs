@@ -5,7 +5,7 @@ using btbrpg.turns;
 
 namespace btbrpg.fsn
 {
-	public class MoveCameraTransform : StateAction
+	public class MoveCameraAction : StateAction
 	{
 		TransformVariable cameraTransform;
 		FloatVariable horizontal;
@@ -13,7 +13,7 @@ namespace btbrpg.fsn
 
 		VariablesHolder varHolder;
 
-		public MoveCameraTransform(VariablesHolder holder)
+		public MoveCameraAction(VariablesHolder holder)
 		{
 			varHolder = holder;
 			cameraTransform = varHolder.cameraTransform;
