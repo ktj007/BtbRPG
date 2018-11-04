@@ -30,13 +30,9 @@ namespace btbrpg.turns
             {
                 isPathfinding = true;
 
-                Node start = new Node(); // turns[0].player.characters[0].currentNode;
-                start.x = 3;
-                start.z = 3;
-
+                Node start = turns[0].player.characters[0].currentNode;
                 Node target = targetNode;
 
-                Debug.Log("Start is: " + start + ", target is: " + target);
                 if (start != null && target != null)
                 {
                     PathfinderMaster.singleton.RequestPathfind(turns[0].player.characters[0],
@@ -61,7 +57,7 @@ namespace btbrpg.turns
             List<Vector3> allPositions = new List<Vector3>();
             for (int i = 0; i < p.Count; i++)
             {
-                allPositions.Add(p[i].worldPosition + Vector3.up * .1f);
+                allPositions.Add(p[i].worldPosition + Vector3.up * .05f);
             }
 
             pathViz.SetPositions(allPositions.ToArray());

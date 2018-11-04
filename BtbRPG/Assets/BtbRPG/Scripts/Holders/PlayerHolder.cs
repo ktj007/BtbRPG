@@ -16,7 +16,7 @@ namespace btbrpg.holders
 
         [SerializeField] private GameObject stateManagerPrefab;
 
-        public List<GridCharacter> characters = new List<GridCharacter>();
+        [NonSerialized] public List<GridCharacter> characters = new List<GridCharacter>();
 
         public void Init()
         {

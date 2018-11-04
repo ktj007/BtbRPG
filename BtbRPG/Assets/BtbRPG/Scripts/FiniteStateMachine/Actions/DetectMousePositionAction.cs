@@ -15,18 +15,21 @@ namespace btbrpg.fsn
 			RaycastHit hit;
 			if (Physics.Raycast(ray, out hit, MAX_DISTANCE))
             {
-                states.currentNode = sm.gridManager.GetNode(hit.point);
-                
 
-                if (states.currentNode != null)
+                Node n = sm.gridManager.GetNode(hit.point);
+                if (n != null)
                 {
-                    Debug.Log("current node is node: " + states.currentNode.x + ", " + states.currentNode.z);
+                    states.currentNode = n;
 
-                    if (states.currentNode != states.prevNode)
+                    if (states.currentNode != null)
                     {
-                        states.prevNode = states.currentNode;
-                        sm.PathfinderCall(states.currentNode);
+                        if (states.currentNode != states.prevNode)
+                        {
+                            states.prevNode = states.currentNode;
+                            sm.PathfinderCall(states.currentNode);
+                        }
                     }
+
                 }
 
             }
