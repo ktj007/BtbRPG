@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 using btbrpg.characters;
 using btbrpg.grid;
+using btbrpg.pathfinder;
 
 
 namespace btbrpg.turns
@@ -17,12 +19,59 @@ namespace btbrpg.turns
         public float delta;
 
         bool isInit;
+        bool isPathfinding;
+
+        public LineRenderer pathViz;
+
+
+        public void PathfinderCall(Node targetNode)
+        {
+            if (!isPathfinding)
+            {
+                isPathfinding = true;
+
+                Node start = new Node(); // turns[0].player.characters[0].currentNode;
+                start.x = 3;
+                start.z = 3;
+
+                Node target = targetNode;
+
+                Debug.Log("Start is: " + start + ", target is: " + target);
+                if (start != null && target != null)
+                {
+                    PathfinderMaster.singleton.RequestPathfind(turns[0].player.characters[0],
+                        start, target, PathfinderCallback, gridManager);
+                }
+                else
+                {
+                    isPathfinding = false;
+                }
+            }
+        }
+
+        void PathfinderCallback(List<Node> p, GridCharacter c)
+        {
+            isPathfinding = false;
+            if (p == null)
+            {
+                return;
+            }
+
+            pathViz.positionCount = p.Count;
+            List<Vector3> allPositions = new List<Vector3>();
+            for (int i = 0; i < p.Count; i++)
+            {
+                allPositions.Add(p[i].worldPosition + Vector3.up * .1f);
+            }
+
+            pathViz.SetPositions(allPositions.ToArray());
+        }
 
         private void Start()
         {
             gridManager.Init();
-            InitStateManagers();
             PlaceUnits();
+            InitStateManagers();
             isInit = true;
         }
 
@@ -39,6 +88,8 @@ namespace btbrpg.turns
             GridCharacter[] units = GameObject.FindObjectsOfType<GridCharacter>();
             foreach (GridCharacter u in units)
             {
+                u.Init();
+
                 Node n = gridManager.GetNode(u.transform.position);
                 if (n != null)
                 {
@@ -46,8 +97,6 @@ namespace btbrpg.turns
                     n.character = u;
                     u.currentNode = n;
                 }
-
-                u.Init();
             }
         }
 

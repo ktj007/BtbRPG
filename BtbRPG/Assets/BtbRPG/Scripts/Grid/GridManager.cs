@@ -30,10 +30,15 @@ namespace btbrpg.grid
 
         [SerializeField] private GameObject tileVisualization;
 
+        private GameObject tileContainer;
+
         #endregion
 
         public void Init()
         {
+            tileContainer = new GameObject();
+            tileContainer.name = "Tile Container";
+
             ReadLevel();
             CreateGrid();
         }
@@ -163,6 +168,7 @@ namespace btbrpg.grid
 
                             GameObject go = Instantiate(tileVisualization, n.worldPosition + Vector3.one * .1f, Quaternion.identity) as GameObject;
                             n.tileVisualization = go;
+                            go.transform.parent = tileContainer.transform;
                             go.SetActive(true);
                         }
 

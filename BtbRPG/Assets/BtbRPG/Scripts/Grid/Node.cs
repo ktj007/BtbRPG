@@ -17,5 +17,17 @@ namespace btbrpg.grid
         public GameObject tileVisualization;
 
         public GridCharacter character;
+
+        public float hCost;
+        public float gCost;
+        public float fCost
+        {
+            get
+            {
+                return hCost + gCost;
+            }
+        }
+
+        public Node parentNode;
     }
 }

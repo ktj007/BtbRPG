@@ -12,6 +12,7 @@ namespace btbrpg.fsn
 		public bool forceExit;
 
 		public Node currentNode;
+        public Node prevNode;
         public float delta;
 
 		protected Dictionary<string, State> allStates = new Dictionary<string, State>();

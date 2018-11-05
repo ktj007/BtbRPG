@@ -7,20 +7,29 @@ namespace btbrpg.fsn
 {
 	public class DetectMousePositionAction : StateAction
 	{
-		public override void Execute(StateManager states, SessionManager sm, Turn t)
+        private const int MAX_DISTANCE = 1000;
+
+        public override void Execute(StateManager states, SessionManager sm, Turn t)
 		{
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
-			if (Physics.Raycast(ray, out hit, 1000))
-			{
-				Node n = sm.gridManager.GetNode(hit.point);
-				states.currentNode = n;
-				if (n != null)
-				{
-					Debug.Log("node found");
-				}
-				
-			}
-		}
+			if (Physics.Raycast(ray, out hit, MAX_DISTANCE))
+            {
+                states.currentNode = sm.gridManager.GetNode(hit.point);
+                
+
+                if (states.currentNode != null)
+                {
+                    Debug.Log("current node is node: " + states.currentNode.x + ", " + states.currentNode.z);
+
+                    if (states.currentNode != states.prevNode)
+                    {
+                        states.prevNode = states.currentNode;
+                        sm.PathfinderCall(states.currentNode);
+                    }
+                }
+
+            }
+        }
 	}
 }

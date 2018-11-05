@@ -27,7 +27,9 @@ namespace btbrpg.holders
         public void RegisterCharacter(GridCharacter c)
         {
             if (characters.Contains(c) == false)
+            {
                 characters.Add(c);
+            }
         }
 
         public void UnRegisterCharacter(GridCharacter c)
