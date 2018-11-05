@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using btbrpg.characters;
 using btbrpg.grid;
 using btbrpg.pathfinder;
-
+using System;
 
 namespace btbrpg.turns
 {
     public class SessionManager : MonoBehaviour
     {
+        private const float LIFT_PATH_VIZ = .05f;
         int turnIndex;
         public Turn[] turns;
 
@@ -23,60 +24,13 @@ namespace btbrpg.turns
 
         public LineRenderer pathViz;
 
-
-        public void PathfinderCall(Node targetNode)
-        {
-            if (!isPathfinding)
-            {
-                isPathfinding = true;
-
-                Node start = turns[0].player.characters[0].currentNode;
-                Node target = targetNode;
-
-                if (start != null && target != null)
-                {
-                    PathfinderMaster.singleton.RequestPathfind(turns[0].player.characters[0],
-                        start, target, PathfinderCallback, gridManager);
-                }
-                else
-                {
-                    isPathfinding = false;
-                }
-            }
-        }
-
-        void PathfinderCallback(List<Node> p, GridCharacter c)
-        {
-            isPathfinding = false;
-            if (p == null)
-            {
-                return;
-            }
-
-            pathViz.positionCount = p.Count;
-            List<Vector3> allPositions = new List<Vector3>();
-            for (int i = 0; i < p.Count; i++)
-            {
-                allPositions.Add(p[i].worldPosition + Vector3.up * .05f);
-            }
-
-            pathViz.SetPositions(allPositions.ToArray());
-        }
-
+        #region Init
         private void Start()
         {
             gridManager.Init();
             PlaceUnits();
             InitStateManagers();
             isInit = true;
-        }
-
-        private void InitStateManagers()
-        {
-            foreach (Turn t in turns)
-            {
-                t.player.Init();
-            }
         }
 
         private void PlaceUnits()
@@ -96,6 +50,65 @@ namespace btbrpg.turns
             }
         }
 
+        private void InitStateManagers()
+        {
+            foreach (Turn t in turns)
+            {
+                t.player.Init();
+            }
+        }
+        #endregion
+
+        #region pathfinder calls
+        public void PathfinderCall(GridCharacter character, Node targetNode)
+        {
+            if (!isPathfinding)
+            {
+                isPathfinding = true;
+
+                Node start = character.currentNode;
+                Node target = targetNode;
+
+                if (start != null && target != null)
+                {
+                    PathfinderMaster.singleton.RequestPathfind(character,
+                        start, target, PathfinderCallback, gridManager);
+                }
+                else
+                {
+                    isPathfinding = false;
+                }
+            }
+        }
+
+        void PathfinderCallback(List<Node> p, GridCharacter c)
+        {
+            isPathfinding = false;
+            if (p == null)
+            {
+                return;
+            }
+
+            pathViz.positionCount = p.Count + 1; // +1 see below: one position added
+            List<Vector3> allPositions = new List<Vector3>();
+            Vector3 pathVizOffset = Vector3.up * LIFT_PATH_VIZ;
+
+            allPositions.Add(c.currentNode.worldPosition + pathVizOffset); // ...one position added
+            for (int i = 0; i < p.Count; i++)
+            {
+                allPositions.Add(p[i].worldPosition + pathVizOffset);
+            }
+
+            pathViz.SetPositions(allPositions.ToArray());
+        }
+
+        public void ClearPath()
+        {
+            pathViz.positionCount = 0;
+        }
+        #endregion
+
+        #region turn management
         private void Update()
         {
             if (!isInit)
@@ -112,6 +125,7 @@ namespace btbrpg.turns
                 }
             }
         }
+        #endregion
     }
 }
 

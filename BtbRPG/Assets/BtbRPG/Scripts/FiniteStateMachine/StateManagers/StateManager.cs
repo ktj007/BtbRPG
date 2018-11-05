@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+using btbrpg.characters;
 using btbrpg.grid;
+using btbrpg.holders;
 using btbrpg.turns;
+
 
 namespace btbrpg.fsn
 {
@@ -14,6 +17,27 @@ namespace btbrpg.fsn
 		public Node currentNode;
         public Node prevNode;
         public float delta;
+
+        public PlayerHolder playerHolder;
+
+        private GridCharacter currentCharacter;
+        public GridCharacter CurrentCharacter
+        {
+            get
+            {
+                return currentCharacter;
+            }
+
+            set
+            {
+                if(currentCharacter != null)
+                {
+                    currentCharacter.OnDeselect(playerHolder);
+                }
+
+                currentCharacter = value;
+            }
+        }
 
 		protected Dictionary<string, State> allStates = new Dictionary<string, State>();
 

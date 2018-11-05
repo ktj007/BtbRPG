@@ -22,6 +22,8 @@ namespace btbrpg.holders
         {
             stateManagerObject = Instantiate(stateManagerPrefab) as GameObject;
             stateManager = stateManagerObject.GetComponent<StateManager>();
+
+            stateManager.playerHolder = this;
         }
 
         public void RegisterCharacter(GridCharacter c)

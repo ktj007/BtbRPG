@@ -12,7 +12,7 @@ namespace btbrpg.fsn
 
             State interactions = new State();
             interactions.actions.Add(new InputAction(gameVars));
-            interactions.actions.Add(new DetectMousePositionAction());
+            interactions.actions.Add(new HandleMouseAction());
             interactions.actions.Add(new MoveCameraAction(gameVars));
             
 
