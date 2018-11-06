@@ -34,31 +34,45 @@ namespace btbrpg.fsn
                 {
                     if (n.character != null)
                     {
-                        // highlight own character
+                        //you highlighted your own unit
                         if (n.character.owner == states.playerHolder)
                         {
                             n.character.OnHighlight(states.playerHolder);
                             prevCharacter = n.character;
+                            sm.ClearPath(states);
                         }
-                        else // highlight an enemy character
+                        else //you highlighted an enemy unit
                         {
-                            // TODO: Attack!
+
                         }
                     }
 
                     if (states.CurrentCharacter != null && n.character == null)
                     {
-                        PathDetection(states, sm, n);
+                        if (mouseClick)
+                        {
+                            if (states.CurrentCharacter.currentPath != null || states.CurrentCharacter.currentPath.Count > 0)
+                            {
+                                states.SetState("moveOnPath");
+                            }
+                        }
+                        else
+                        {
+                            PathDetection(states, sm, n);
+                        }
                     }
-                    else // no character selected
+                    else //No character selected
                     {
                         if (mouseClick)
                         {
-                            if (n.character.owner == states.playerHolder)
+                            if (n.character != null)
                             {
-                                n.character.OnSelect(states.playerHolder);
-                                states.prevNode = null;
-                                sm.ClearPath();
+                                if (n.character.owner == states.playerHolder)
+                                {
+                                    n.character.OnSelect(states.playerHolder);
+                                    states.prevNode = null;
+                                    sm.ClearPath(states);
+                                }
                             }
                         }
                     }

@@ -10,12 +10,14 @@ namespace btbrpg.characters
 	public class GridCharacter : MonoBehaviour, ISelectable
 	{
         public PlayerHolder owner;
-        public Node currentNode;
 
         public GameObject highlighter;
         private bool isSelected;
 
-        public List<Node> currentPath;
+        public float moveSpeed;
+
+        [HideInInspector] public Node currentNode;
+        [HideInInspector] public List<Node> currentPath;
 
         public void Init()
         {
@@ -23,7 +25,7 @@ namespace btbrpg.characters
             highlighter.SetActive(false);
         }
 
-        public void LoadPath(List<Node> path)
+        public void SetCurrentPath(List<Node> path)
         {
             currentPath = path;
         }

@@ -10,17 +10,24 @@ namespace btbrpg.fsn
 		{
             VariablesHolder gameVars = Resources.Load("GameVariables") as VariablesHolder;
 
-            State interactions = new State();
-            interactions.actions.Add(new InputAction(gameVars));
-            interactions.actions.Add(new HandleMouseAction());
-            interactions.actions.Add(new MoveCameraAction(gameVars));
+            State interactionsState = new State();
+            interactionsState.actions.Add(new InputAction(gameVars));
+            interactionsState.actions.Add(new HandleMouseAction());
+            interactionsState.actions.Add(new MoveCameraAction(gameVars));
             
+            State waitState = new State();
+            // Empty State. No StateActions added here so far...
 
-            State wait = new State();
-			currentState = interactions;
+            State moveOnPathState = new State();
+            moveOnPathState.actions.Add(new MoveCharacterOnPathAction());
 
-			allStates.Add("interactions", interactions);
-			allStates.Add("wait", wait);
-		}
+            startingState = interactionsState;
+			currentState = interactionsState;
+
+            allStates.Add("moveOnPath", moveOnPathState);
+            allStates.Add("interactions", interactionsState);
+			allStates.Add("wait", waitState);
+            
+        }
 	}
 }

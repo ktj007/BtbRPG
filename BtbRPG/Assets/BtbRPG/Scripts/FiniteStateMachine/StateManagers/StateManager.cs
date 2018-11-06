@@ -5,13 +5,15 @@ using btbrpg.characters;
 using btbrpg.grid;
 using btbrpg.holders;
 using btbrpg.turns;
-
+using System;
 
 namespace btbrpg.fsn
 {
 	public abstract class StateManager : MonoBehaviour
 	{
 		public State currentState;
+        public State startingState;
+
 		public bool forceExit;
 
 		public Node currentNode;
@@ -72,11 +74,16 @@ namespace btbrpg.fsn
 			currentState = targetState;
 		}
 
-		State GetState(string id)
+		public State GetState(string id)
 		{
 			State result = null;
 			allStates.TryGetValue(id, out result);
 			return result;
 		}
-	}
+
+        public void SetStartingState()
+        {
+            currentState = startingState;
+        }
+    }
 }

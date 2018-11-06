@@ -149,10 +149,13 @@ namespace btbrpg.pathfinder
 		{
 			Node retVal = null;
 
-			if (currentNode.isWalkable)
-			{
-				retVal = currentNode;
-			}
+            if(currentNode != null)
+            {
+                if (currentNode.isWalkable)
+                {
+                    retVal = currentNode;
+                }
+            }
 
 			return retVal;
 		}

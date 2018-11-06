@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 
 using btbrpg.characters;
+using btbrpg.fsn;
 using btbrpg.grid;
 using btbrpg.pathfinder;
-using System;
 
 namespace btbrpg.turns
 {
@@ -99,12 +99,17 @@ namespace btbrpg.turns
                 allPositions.Add(p[i].worldPosition + pathVizOffset);
             }
 
+            c.SetCurrentPath(p);
             pathViz.SetPositions(allPositions.ToArray());
         }
 
-        public void ClearPath()
+        public void ClearPath(StateManager states)
         {
             pathViz.positionCount = 0;
+            if (states.CurrentCharacter != null)
+            {
+                states.CurrentCharacter.currentPath = null;
+            }
         }
         #endregion
 
