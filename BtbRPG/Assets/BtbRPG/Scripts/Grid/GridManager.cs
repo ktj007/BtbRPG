@@ -9,41 +9,57 @@ namespace btbrpg.grid
 
         #region Variables
         private Node[,,] grid;
+        private GameObject tileContainer;
 
+        [Header("Grid Scaling")]
         [SerializeField] private float xzScale = 1.5f;
         [SerializeField] private float yScale = 2;
 
-        private Vector3 minPos;
+        // Grid dimensions
+        private Vector3 minPos; // starting point
+        private int dimensionX; // dimension x
+        private int dimensionZ; // dimension z
+        private int dimensionY; // dimension y
 
-        private int maxX;
-        private int maxZ;
-        private int maxY;
-
+        [Header("Node / Collider Visualisation")]
         [SerializeField] private bool visualizeCollisions;
-
-        private List<Vector3> nodeVisualization = new List<Vector3>();
-        [SerializeField] private Vector3 nodeExtents = new Vector3(.8f, .8f, .8f);
-
-        private int dimensionX;
-        private int dimensionZ;
-        private int dimensionY;
-
         [SerializeField] private GameObject tileVisualization;
+        private List<Vector3> nodeVisualization = new List<Vector3>();
 
-        private GameObject tileContainer;
 
+        // As vertical grid collider (see collisonDetectionExtentY) may be less than 1f use raycast to detect floor
+        [Header("Grid Detection Raycast Attributes")]
+        [SerializeField] float rayDownOrigin = .7f; // start of ray, added to node's y world position
+        [SerializeField] float rayDownDist = 1.3f; // distance of ray
+        
+
+        // Size of the collider boxes which will (on collision with GridObject's collider) determine, 
+        // whether there is to be a grid node. 
+        [Header("Obstacle Detection Collider Extents")]
+        [Range(.2f, 1f)] [SerializeField] private float collisonExtentX = .8f;
+        [Range(.2f, 1f)] [SerializeField] private float collisonExtentY = .8f;
+        [Range(.2f, 1f)] [SerializeField] private float collisonExtentZ = .8f;
+        [SerializeField] float collisionOffset;
+
+        Vector3 collisionDetectionExtents;
+ 
+        // public GameObject unit;
         #endregion
+
 
         public void Init()
         {
             tileContainer = new GameObject();
             tileContainer.name = "Tile Container";
 
-            ReadLevel();
+            // needs to be global for usage in OnDrawGizmos()
+            collisionDetectionExtents = new Vector3(collisonExtentX, collisonExtentY, collisonExtentZ);
+
+            ReadLevelDimensions();
             CreateGrid();
         }
 
-        void ReadLevel()
+        void ReadLevelDimensions()
         {
             GridPosition[] gp = GameObject.FindObjectsOfType<GridPosition>();
 
@@ -123,64 +139,86 @@ namespace btbrpg.grid
                         n.z = z;
                         n.y = y;
 
-                        Vector3 tp = minPos;
-                        tp.x += x * xzScale;// + .5f;
-                        tp.z += z * xzScale;// + .5f;
-                        tp.y += y * yScale;
+                        Vector3 nodeWorldPosition = minPos;
+                        nodeWorldPosition.x += x * xzScale; // + .5f;
+                        nodeWorldPosition.z += z * xzScale; // + .5f;
+                        nodeWorldPosition.y += y * yScale;
 
-                        n.worldPosition = tp;
+                        n.worldPosition = nodeWorldPosition;
+                        DetectWalkableNodesByRaycast(n);
 
-                        Collider[] overlapNode = Physics.OverlapBox(tp, nodeExtents / 2, Quaternion.identity);
-
-                        if (overlapNode.Length > 0)
-                        {
-                            bool isWalkable = false;
-
-                            for (int i = 0; i < overlapNode.Length; i++)
-                            {
-                                GridObject obj = overlapNode[i].transform.GetComponentInChildren<GridObject>();
-                                if (obj != null)
-                                {
-                                    if (obj.isWalkable && n.obstacle == null)
-                                    {
-                                        isWalkable = true;
-                                    }
-                                    else
-                                    {
-                                        isWalkable = false;
-                                        n.obstacle = obj;
-                                    }
-                                }
-                            }
-
-                            n.isWalkable = isWalkable;
-                        }
-
-                        if (n.isWalkable)
-                        {
-                            RaycastHit hit;
-                            Vector3 origin = n.worldPosition;
-                            origin.y += yScale - .1f;
-                            if (Physics.Raycast(origin, Vector3.down, out hit, yScale - .1f))
-                            {
-                                n.worldPosition = hit.point;
-                            }
-
-                            GameObject go = Instantiate(tileVisualization, n.worldPosition + Vector3.one * .1f, Quaternion.identity) as GameObject;
-                            n.tileVisualization = go;
-                            go.transform.parent = tileContainer.transform;
-                            go.SetActive(true);
-                        }
-
-                        if (n.obstacle != null)
-                        {
-                            nodeVisualization.Add(n.worldPosition);
-                        }
+                        Vector3 collisionPosition = DetectObstaclesByCollision(n);
+                        BuildWalkableNodeVisualisation(n, collisionPosition);
 
                         grid[x, y, z] = n;
                     }
                 }
             }
+        }
+
+        private void DetectWalkableNodesByRaycast(Node n)
+        {
+            RaycastHit hit;
+            Vector3 origin = n.worldPosition;
+            origin.y += rayDownOrigin;
+
+            Debug.DrawRay(origin, Vector3.down * rayDownDist, Color.red, 3);
+            if (Physics.Raycast(origin, Vector3.down, out hit, rayDownDist))
+            {
+                GridObject gridObject = hit.transform.GetComponentInParent<GridObject>();
+                if (gridObject != null)
+                {
+                    if (gridObject.isWalkable)
+                    {
+                        n.isWalkable = true;
+                    }
+                }
+
+                n.worldPosition = hit.point;
+            }
+        }
+
+        private Vector3 DetectObstaclesByCollision(Node n)
+        {
+            Vector3 collisionPosition = n.worldPosition;
+            collisionPosition.y += collisionOffset;
+
+            Collider[] overlapNode = Physics.OverlapBox(collisionPosition, collisionDetectionExtents, Quaternion.identity);
+            if (overlapNode.Length > 0)
+            {
+                for (int i = 0; i < overlapNode.Length; i++)
+                {
+                    GridObject obj = overlapNode[i].transform.GetComponentInChildren<GridObject>();
+                    if (obj != null)
+                    {
+                        if (obj.isWalkable && n.obstacle == null)
+                        {
+                            
+                        }
+                        else
+                        {   // this will make nodes unwalkable where there is an obstacle below the node
+                            // depending on the collider's extents
+                            n.isWalkable = false;
+                            n.obstacle = obj;
+                        }
+                    }
+                }
+            }
+
+            return collisionPosition;
+        }
+
+        private void BuildWalkableNodeVisualisation(Node n, Vector3 collisionPosition)
+        {
+            if (n.isWalkable)
+            {
+                GameObject go = Instantiate(tileVisualization, n.worldPosition + Vector3.one * .1f, Quaternion.identity) as GameObject;
+                n.tileVisualization = go;
+                go.transform.parent = tileContainer.transform;
+                go.SetActive(true);
+            }
+
+            nodeVisualization.Add(collisionPosition);
         }
 
         public Node GetNode(Vector3 wp)
@@ -210,7 +248,7 @@ namespace btbrpg.grid
                 Gizmos.color = Color.red;
                 for (int i = 0; i < nodeVisualization.Count; i++)
                 {
-                    Gizmos.DrawWireCube(nodeVisualization[i], nodeExtents);
+                    Gizmos.DrawWireCube(nodeVisualization[i], collisionDetectionExtents);
                 }
             }
         }
