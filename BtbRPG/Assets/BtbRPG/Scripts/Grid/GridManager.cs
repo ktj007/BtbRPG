@@ -216,6 +216,14 @@ namespace btbrpg.grid
                 n.tileVisualization = go;
                 go.transform.parent = tileContainer.transform;
                 go.SetActive(true);
+            } 
+            else
+            {
+                // node is not walkable, but there is also no obstacle
+                if(n.obstacle == null)
+                {
+                    n.isAir = true;
+                }
             }
 
             nodeVisualization.Add(collisionPosition);

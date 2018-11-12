@@ -15,6 +15,7 @@ namespace btbrpg.characters
         private bool isSelected;
 
         public float moveSpeed;
+        public bool isCrouched;
 
         [HideInInspector] public Node currentNode;
         [HideInInspector] public List<Node> currentPath;

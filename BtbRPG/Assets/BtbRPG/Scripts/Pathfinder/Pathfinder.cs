@@ -149,15 +149,23 @@ namespace btbrpg.pathfinder
 		{
 			Node retVal = null;
 
-            if(currentNode != null)
+            if (currentNode != null)
             {
                 if (currentNode.isWalkable)
                 {
-                    retVal = currentNode;
+                    Node aboveNode = GetNode(currentNode.x, currentNode.y + 1, currentNode.z);
+                    if (aboveNode == null || aboveNode.isAir || character.isCrouched)
+                    {
+                        retVal = currentNode;
+                    }
+                    else
+                    {
+
+                    }
                 }
             }
 
-			return retVal;
+            return retVal;
 		}
 
 		List<Node> RetracePath(Node start, Node end)
