@@ -14,13 +14,38 @@ namespace btbrpg.characters
         public GameObject highlighter;
         private bool isSelected;
 
-        public float moveSpeed;
+        public float walkSpeed = 1f;
+        public float crouchSpeed = 0.8f;
+        public float runSpeed = 2.5f;
+        public float rotateSpeed = 5;
+
         public bool isCrouched;
+        public bool isRunning;
+        public bool isProne;
+
+        public float Speed
+        {
+            get
+            {
+                float r = walkSpeed;
+                if (isCrouched)
+                {
+                    r = crouchSpeed;
+                }
+
+                if (isRunning)
+                {
+                    r = runSpeed;
+                }
+                return r;
+            }
+
+        }
 
         [HideInInspector] public Node currentNode;
         [HideInInspector] public List<Node> currentPath;
 
-        public Animator animator;
+        private Animator animator;
 
         public void Init()
         {
@@ -28,23 +53,7 @@ namespace btbrpg.characters
             highlighter.SetActive(false);
 
             animator = GetComponentInChildren<Animator>();
-        }
-
-        private void Update()
-        {
-            if(isCrouched)
-            {
-                animator.SetFloat("Stance", 1f, 0.4f, Time.deltaTime);
-            } 
-            else
-            {
-                animator.SetFloat("Stance", 0f, 0.4f, Time.deltaTime);
-            }
-        }
-
-        public void PlayAnimation(string targetAnimation)
-        {
-            animator.CrossFade(targetAnimation, 0.1f);
+            animator.applyRootMotion = false;
         }
 
         public void SetCurrentPath(List<Node> path)
@@ -52,6 +61,73 @@ namespace btbrpg.characters
             currentPath = path;
         }
 
+        #region Stance Handling
+        public void SetCrouch()
+        {
+            ResetStance();
+            isCrouched = true;
+        }
+
+        public void SetProne()
+        {
+            ResetStance();
+            isProne = true;
+        }
+
+        public void SetRun()
+        {
+            ResetStance();
+            isRunning = true;
+        }
+
+        public void ResetStance()
+        {
+            isRunning = false;
+            isProne = false;
+            isCrouched = false;
+        }
+        #endregion
+
+        #region Animations
+        public void PlayMovementAnimation()
+        {
+            if (isCrouched)
+            {
+                PlayAnimation("Movement Crouch");
+            }
+            else if (isRunning)
+            {
+
+                PlayAnimation("Movement Run");
+            }
+            else
+            {
+                PlayAnimation("Movement Walk");
+
+            }
+        }
+
+        public void PlayIdleAnimation()
+        {
+            if (isCrouched)
+            {
+                PlayAnimation("Idle Crouch");
+
+            }
+            else
+            {
+                PlayAnimation("Idle");
+
+            }
+        }
+
+        public void PlayAnimation(string targetAnim)
+        {
+            animator.CrossFade(targetAnim, 0.05f);
+        }
+        #endregion
+
+        #region Interfaces
         public void OnSelect(PlayerHolder player)
         {
             highlighter.SetActive(true);
@@ -83,5 +159,6 @@ namespace btbrpg.characters
         {
             return currentNode;
         }
+        #endregion
     }
 }

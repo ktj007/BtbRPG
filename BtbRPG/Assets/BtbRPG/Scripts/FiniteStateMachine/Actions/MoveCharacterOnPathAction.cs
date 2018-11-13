@@ -19,8 +19,9 @@ namespace btbrpg.fsn
         private Quaternion startRot;
 
         private int index;
+        private bool firstInit; // TODO: is this necessary
 
-		public override void Execute(StateManager states, SessionManager sm, Turn turn)
+        public override void Execute(StateManager states, SessionManager sm, Turn turn)
 		{
 			GridCharacter gridCharacter = states.CurrentCharacter;
 
@@ -39,19 +40,23 @@ namespace btbrpg.fsn
 				t_ = Mathf.Clamp01(t_);
 				t = t_;
 				float distance = Vector3.Distance(startNode.worldPosition, targetNode.worldPosition);
-				speed = gridCharacter.moveSpeed / distance;
+                speed = gridCharacter.Speed / distance;
 
-				Vector3 direction = targetNode.worldPosition - startNode.worldPosition;
+                Vector3 direction = targetNode.worldPosition - startNode.worldPosition;
 				targetRot = Quaternion.LookRotation(direction);
 				startRot = gridCharacter.transform.rotation;
 
-                gridCharacter.PlayAnimation("Movement");
-			}
+                if (!firstInit)
+                {
+                    gridCharacter.PlayMovementAnimation();
+                    firstInit = true;
+                }
+            }
 
 			t += states.delta * speed;
-			rotT += states.delta * gridCharacter.moveSpeed * 2;
+            rotT += states.delta * gridCharacter.rotateSpeed;
 
-			if (rotT > 1)
+            if (rotT > 1)
 			{
 				rotT = 1;
 			}
@@ -73,7 +78,8 @@ namespace btbrpg.fsn
 					index = 0;
 
 					states.SetStartingState();
-                    gridCharacter.PlayAnimation("Idle");
+                    gridCharacter.PlayIdleAnimation();
+                    firstInit = false;
                 }
 			}
 
