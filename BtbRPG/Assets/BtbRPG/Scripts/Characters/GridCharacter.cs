@@ -123,7 +123,7 @@ namespace btbrpg.characters
 
         public void PlayAnimation(string targetAnim)
         {
-            animator.CrossFade(targetAnim, 0.05f);
+            animator.CrossFade(targetAnim, 0.25f);
         }
         #endregion
 
