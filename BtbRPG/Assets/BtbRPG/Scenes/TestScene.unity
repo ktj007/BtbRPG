@@ -675,6 +675,7 @@ MonoBehaviour:
   highlighter: {fileID: 285087381}
   moveSpeed: 1
   isCrouched: 0
+  animator: {fileID: 0}
 --- !u!136 &190348671
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6933,6 +6934,7 @@ MonoBehaviour:
   highlighter: {fileID: 923631779}
   moveSpeed: 1
   isCrouched: 0
+  animator: {fileID: 0}
 --- !u!136 &1707329333
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7761,6 +7763,7 @@ MonoBehaviour:
   highlighter: {fileID: 940310845}
   moveSpeed: 1
   isCrouched: 0
+  animator: {fileID: 0}
 --- !u!136 &1860839528
 CapsuleCollider:
   m_ObjectHideFlags: 0

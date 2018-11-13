@@ -20,10 +20,31 @@ namespace btbrpg.characters
         [HideInInspector] public Node currentNode;
         [HideInInspector] public List<Node> currentPath;
 
+        public Animator animator;
+
         public void Init()
         {
             owner.RegisterCharacter(this);
             highlighter.SetActive(false);
+
+            animator = GetComponentInChildren<Animator>();
+        }
+
+        private void Update()
+        {
+            if(isCrouched)
+            {
+                animator.SetFloat("Stance", 1f, 0.4f, Time.deltaTime);
+            } 
+            else
+            {
+                animator.SetFloat("Stance", 0f, 0.4f, Time.deltaTime);
+            }
+        }
+
+        public void PlayAnimation(string targetAnimation)
+        {
+            animator.CrossFade(targetAnimation, 0.1f);
         }
 
         public void SetCurrentPath(List<Node> path)
