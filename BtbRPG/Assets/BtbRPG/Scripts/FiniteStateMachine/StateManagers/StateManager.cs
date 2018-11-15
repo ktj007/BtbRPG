@@ -22,7 +22,7 @@ namespace btbrpg.fsn
 
         public PlayerHolder playerHolder;
 
-        private GridCharacter currentCharacter;
+        public GridCharacter currentCharacter;
         public GridCharacter CurrentCharacter
         {
             get

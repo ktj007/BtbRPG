@@ -6,6 +6,8 @@ using btbrpg.fsn;
 using btbrpg.grid;
 using btbrpg.pathfinder;
 
+using SO;
+
 namespace btbrpg.turns
 {
     public class SessionManager : MonoBehaviour
@@ -128,6 +130,34 @@ namespace btbrpg.turns
                 {
                     turnIndex = 0;
                 }
+            }
+        }
+        #endregion
+
+        #region Events
+        public IntVariable stanceInt;
+
+        public void SetStanceForCurrentPlayer()
+        {
+            if (turns[turnIndex].player.stateManager.currentCharacter == null)
+                return;
+
+            switch (stanceInt.value)
+            {
+                case 0:
+                    turns[turnIndex].player.stateManager.currentCharacter.ResetStance();
+                    break;
+                case 1:
+                    turns[turnIndex].player.stateManager.currentCharacter.SetCrouch();
+                    break;
+                case 2:
+                    turns[turnIndex].player.stateManager.currentCharacter.SetRun();
+                    break;
+                case 3:
+                    turns[turnIndex].player.stateManager.currentCharacter.SetProne();
+                    break;
+                default:
+                    break;
             }
         }
         #endregion

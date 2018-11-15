@@ -64,20 +64,47 @@ namespace btbrpg.characters
         #region Stance Handling
         public void SetCrouch()
         {
-            ResetStance();
-            isCrouched = true;
+            if (isCrouched)
+            {
+                ResetStance();
+                PlayAnimation("Idle");
+            }
+            else
+            {
+                ResetStance();
+                isCrouched = true;
+                PlayAnimation("Idle Crouch");
+            }
         }
 
         public void SetProne()
         {
-            ResetStance();
-            isProne = true;
+            if (isProne)
+            {
+                ResetStance();
+                PlayAnimation("Idle");
+            }
+            else
+            {
+                ResetStance();
+                isProne = true;
+            }
+
         }
 
         public void SetRun()
         {
-            ResetStance();
-            isRunning = true;
+            if (isRunning)
+            {
+                ResetStance();
+                PlayAnimation("Idle");
+            }
+            else
+            {
+                ResetStance();
+                isRunning = true;
+                PlayAnimation("Idle");
+            }
         }
 
         public void ResetStance()
@@ -112,7 +139,6 @@ namespace btbrpg.characters
             if (isCrouched)
             {
                 PlayAnimation("Idle Crouch");
-
             }
             else
             {
