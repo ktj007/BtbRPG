@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: GameVariables
   m_EditorClassIdentifier: 
   cameraMoveSpeed: 15
-  cameraTransform: {fileID: 11400000, guid: e6ee9f5e6c78a2e43b81c5e1fd11f30e, type: 2}
+  cameraTransform: {fileID: 11400000, guid: 10b528aa548409f45a54282f29171164, type: 2}
   horizontalInput: {fileID: 11400000, guid: be0edb933d4a16b4a8be320c5ac433a4, type: 2}
   verticalInput: {fileID: 11400000, guid: 67d04725dbaceb947be9e0e5d146ce51, type: 2}

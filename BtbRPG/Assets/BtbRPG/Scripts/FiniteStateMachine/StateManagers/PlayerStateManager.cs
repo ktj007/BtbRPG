@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-using btbrpg.so;
+using SO;
 
 namespace btbrpg.fsn
 {

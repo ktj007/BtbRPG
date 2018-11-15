@@ -8,7 +8,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d933270a864652c489a8784d6e7f696f, type: 3}
-  m_Name: VerticalInput
+  m_Script: {fileID: 11500000, guid: 132cf730a34ddaf4190d783fbd2ecfb2, type: 3}
+  m_Name: Weapon
   m_EditorClassIdentifier: 
-  value: 0
+  isWeapon: 1
+  isDisabledWhenEmpty: 0
