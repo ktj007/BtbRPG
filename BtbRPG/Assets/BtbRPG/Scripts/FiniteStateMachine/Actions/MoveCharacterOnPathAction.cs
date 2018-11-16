@@ -28,10 +28,10 @@ namespace btbrpg.fsn
 			if (!isInit)
 			{
 				if (gridCharacter == null || index > gridCharacter.currentPath.Count - 1)
-				{
-					states.SetStartingState();
-					return;
-				}
+                {
+                    states.SetStartingState();
+                    return;
+                }
 
 				isInit = true;
 				startNode = gridCharacter.currentNode;
@@ -48,6 +48,7 @@ namespace btbrpg.fsn
 
                 if (!firstInit)
                 {
+                    gridCharacter.isStateCurrentlyMoving = true;
                     gridCharacter.PlayMovementAnimation();
                     firstInit = true;
                 }
@@ -78,7 +79,10 @@ namespace btbrpg.fsn
 					index = 0;
 
 					states.SetStartingState();
+
                     gridCharacter.PlayIdleAnimation();
+                    gridCharacter.isStateCurrentlyMoving = false;
+
                     firstInit = false;
                 }
 			}

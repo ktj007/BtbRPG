@@ -14,20 +14,25 @@ namespace btbrpg.characters
         public GameObject highlighter;
         private bool isSelected;
 
-        public float walkSpeed = 1f;
+        [Header("Character Speed Settings")]
+        public float normalSpeed = 1f;
         public float crouchSpeed = 0.8f;
         public float runSpeed = 2.5f;
         public float rotateSpeed = 5;
 
+        [Header("Character Stances")]
+        public bool isProne;
         public bool isCrouched;
         public bool isRunning;
-        public bool isProne;
+
+        public bool isStateCurrentlyMoving;
+        
 
         public float Speed
         {
             get
             {
-                float r = walkSpeed;
+                float r = normalSpeed;
                 if (isCrouched)
                 {
                     r = crouchSpeed;
@@ -66,14 +71,21 @@ namespace btbrpg.characters
         {
             if (isCrouched)
             {
-                ResetStance();
-                PlayAnimation("Idle");
+                // do nothing, already crouched
             }
             else
             {
                 ResetStance();
                 isCrouched = true;
-                PlayAnimation("Idle Crouch");
+
+                if(isStateCurrentlyMoving)
+                {
+                    PlayMovementAnimation();
+                }
+                else
+                {
+                    PlayIdleAnimation();
+                }                
             }
         }
 
@@ -81,13 +93,21 @@ namespace btbrpg.characters
         {
             if (isProne)
             {
-                ResetStance();
-                PlayAnimation("Idle");
+                // do nothing, already prone
             }
             else
             {
                 ResetStance();
                 isProne = true;
+
+                if (isStateCurrentlyMoving)
+                {
+                    PlayMovementAnimation();
+                }
+                else
+                {
+                    PlayIdleAnimation();
+                }
             }
 
         }
@@ -96,14 +116,35 @@ namespace btbrpg.characters
         {
             if (isRunning)
             {
-                ResetStance();
-                PlayAnimation("Idle");
+                // do nothing, already running
             }
             else
             {
                 ResetStance();
                 isRunning = true;
-                PlayAnimation("Idle");
+
+                if (isStateCurrentlyMoving)
+                {
+                    PlayMovementAnimation();
+                }
+                else
+                {
+                    PlayIdleAnimation();
+                }
+            }
+        }
+
+        public void SetNormal()
+        {
+            ResetStance();
+
+            if (isStateCurrentlyMoving)
+            {
+                PlayMovementAnimation();
+            }
+            else
+            {
+                PlayIdleAnimation();
             }
         }
 
@@ -187,4 +228,12 @@ namespace btbrpg.characters
         }
         #endregion
     }
+
+
+    public enum CharacterStance
+    {
+        PRONE, CROUCHED, NORMAL
+    }
+
+
 }

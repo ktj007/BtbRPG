@@ -145,7 +145,7 @@ namespace btbrpg.turns
             switch (stanceInt.value)
             {
                 case 0:
-                    turns[turnIndex].player.stateManager.currentCharacter.ResetStance();
+                    turns[turnIndex].player.stateManager.currentCharacter.SetNormal();
                     break;
                 case 1:
                     turns[turnIndex].player.stateManager.currentCharacter.SetCrouch();
