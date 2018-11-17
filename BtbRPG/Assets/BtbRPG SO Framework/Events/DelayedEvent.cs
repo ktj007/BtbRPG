@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace SO
+namespace btbrpg.so.events
 {
     public class DelayedEvent : MonoBehaviour
     {

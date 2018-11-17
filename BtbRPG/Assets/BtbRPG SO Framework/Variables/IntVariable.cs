@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace SO
+namespace btbrpg.so.variables
 {
-    [CreateAssetMenu(menuName = "Variables/Integer")]
+    [CreateAssetMenu(menuName = "BtbRPG/Variables/Integer")]
     public class IntVariable : NumberVariable
     {
         public int value;

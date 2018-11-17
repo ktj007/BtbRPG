@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-using SO;
+using btbrpg.so.variables;
 using btbrpg.turns;
 
 namespace btbrpg.fsn

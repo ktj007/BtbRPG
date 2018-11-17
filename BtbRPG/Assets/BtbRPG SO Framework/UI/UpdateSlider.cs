@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using SO;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
-namespace SO.UI
+using btbrpg.so.variables;
+
+namespace btbrpg.so.ui
 {
     public class UpdateSlider : UIPropertyUpdater
     {

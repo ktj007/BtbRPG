@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace SO
+namespace btbrpg.so.events
 {
-    [CreateAssetMenu(menuName = "Game Event")]
+    [CreateAssetMenu(menuName = "BtbRPG/Events/Game Event")]
     public class GameEvent : ScriptableObject
     {
         List<GameEventListener> listeners = new List<GameEventListener>();

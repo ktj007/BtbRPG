@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace SO
+using btbrpg.so.variables;
+
+
+namespace btbrpg.so.events
 {
     /// <summary>
     /// This script works as a game event listener (since it derives from it)

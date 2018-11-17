@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace SO
+namespace btbrpg.so.variables
 {
-    [CreateAssetMenu(menuName = "Variables/Float")]
+    [CreateAssetMenu(menuName = "BtbRPG/Variables/Float")]
     public class FloatVariable : NumberVariable
     {
         public float value;

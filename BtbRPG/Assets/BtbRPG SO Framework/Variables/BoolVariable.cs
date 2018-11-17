@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace SO
+namespace btbrpg.so.variables
 {
-    [CreateAssetMenu(menuName = "Variables/Bool")]
+    [CreateAssetMenu(menuName = "BtbRPG/Variables/Bool")]
     public class BoolVariable : ScriptableObject
     {
         public bool value;

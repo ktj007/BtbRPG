@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using SO;
+﻿using UnityEngine;
 
-namespace SA
+using btbrpg.so.variables;
+
+
+namespace btbrpg.so.helper
 {
     public class AssignTransform : MonoBehaviour
     {

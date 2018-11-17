@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace SO
+namespace btbrpg.so.variables
 {
-    [CreateAssetMenu(menuName = "Variables/Sprite")]
+    [CreateAssetMenu(menuName = "BtbRPG/Variables/Sprite")]
     public class SpriteVariable : ScriptableObject
     {
         public Sprite value;

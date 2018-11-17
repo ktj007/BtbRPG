@@ -730,13 +730,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 11400000, guid: 57110bd1964a1ed48b8071448d8ea38d, type: 2}
   highlighter: {fileID: 285087381}
-  walkSpeed: 1
+  normalSpeed: 1
   crouchSpeed: 0.8
   runSpeed: 2.5
   rotateSpeed: 5
+  isProne: 0
   isCrouched: 0
   isRunning: 0
-  isProne: 0
+  isStateCurrentlyMoving: 0
 --- !u!136 &190348671
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2062,14 +2063,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 590954737}
-  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 5, y: 14, z: -10}
+  m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
+  m_LocalPosition: {x: 5, y: 16, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 534669905}
   m_Father: {fileID: 0}
   m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 35, y: 0, z: 0}
 --- !u!114 &590954739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6995,13 +6996,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 11400000, guid: 57110bd1964a1ed48b8071448d8ea38d, type: 2}
   highlighter: {fileID: 923631779}
-  walkSpeed: 1
+  normalSpeed: 1
   crouchSpeed: 0.8
   runSpeed: 2.5
   rotateSpeed: 5
+  isProne: 0
   isCrouched: 0
   isRunning: 0
-  isProne: 0
+  isStateCurrentlyMoving: 0
 --- !u!136 &1707329333
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7828,13 +7830,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 11400000, guid: 57110bd1964a1ed48b8071448d8ea38d, type: 2}
   highlighter: {fileID: 940310845}
-  walkSpeed: 1
+  normalSpeed: 1
   crouchSpeed: 0.8
   runSpeed: 2.5
   rotateSpeed: 5
+  isProne: 0
   isCrouched: 0
   isRunning: 0
-  isProne: 0
+  isStateCurrentlyMoving: 0
 --- !u!136 &1860839528
 CapsuleCollider:
   m_ObjectHideFlags: 0

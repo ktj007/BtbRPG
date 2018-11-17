@@ -5,8 +5,7 @@ using btbrpg.characters;
 using btbrpg.fsn;
 using btbrpg.grid;
 using btbrpg.pathfinder;
-
-using SO;
+using btbrpg.so.variables;
 
 namespace btbrpg.turns
 {

@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace SO
+namespace btbrpg.so.variables
 {
-    [CreateAssetMenu(menuName = "Variables/String")]
+    [CreateAssetMenu(menuName = "BtbRPG/Variables/String")]
     public class StringVariable : ScriptableObject
     {
         public string value;

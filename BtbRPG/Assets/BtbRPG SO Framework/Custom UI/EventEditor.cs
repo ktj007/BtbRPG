@@ -2,7 +2,9 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace SO
+using btbrpg.so.events;
+
+namespace btbrpg.so.editor
 {
     [CustomEditor(typeof(GameEvent))]
     public class EventEditor : Editor

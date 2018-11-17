@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace SO
+namespace btbrpg.so.variables
 {
-	[CreateAssetMenu(menuName = "Variables/Game Variables Holder")]
+	[CreateAssetMenu(menuName = "BtbRPG/Variables/Game Variables Holder")]
 	public class VariablesHolder : ScriptableObject
 	{
 		public float cameraMoveSpeed = 15;

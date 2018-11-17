@@ -2,7 +2,7 @@
 
 using btbrpg.turns;
 
-using SO;
+using btbrpg.so.variables;
 
 namespace btbrpg.fsn
 {

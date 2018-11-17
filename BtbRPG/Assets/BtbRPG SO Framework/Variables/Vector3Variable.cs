@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace SO
+namespace btbrpg.so.variables
 {
-	[CreateAssetMenu(menuName = "Variables/Vector3")]
+    [CreateAssetMenu(menuName = "BtbRPG/Variables/Vector3")]
 	public class Vector3Variable : ScriptableObject
 	{
 		public Vector3 value;

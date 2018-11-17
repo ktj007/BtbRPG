@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace SO
+using btbrpg.so.variables;
+
+namespace btbrpg.so.events
 {
     public class NumberToNumberVariable_Comparison : EventExecutionOnMB
     {

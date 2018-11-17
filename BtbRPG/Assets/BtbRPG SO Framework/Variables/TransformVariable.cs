@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace SO
+namespace btbrpg.so.variables
 {
-    [CreateAssetMenu(menuName = "Variables/Transform")]
+    [CreateAssetMenu(menuName = "BtbRPG/Variables/Transform")]
     public class TransformVariable : ScriptableObject
     {
         public Transform value;

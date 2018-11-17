@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using btbrpg.so.events;
 
-namespace SO.UI
+namespace btbrpg.so.ui
 {
     public class UIPropertyUpdater : GameEventListener
     {
