@@ -27,7 +27,7 @@ namespace btbrpg.fsn
 			Vector3 tp = cameraTransform.value.forward * (vertical.value * varHolder.cameraMoveSpeed);
 			tp += cameraTransform.value.right * (horizontal.value * varHolder.cameraMoveSpeed);
 
-			cameraTransform.value.position += tp * states.delta;
+			cameraTransform.value.position += tp * states.Delta;
 		}
 	}
 }

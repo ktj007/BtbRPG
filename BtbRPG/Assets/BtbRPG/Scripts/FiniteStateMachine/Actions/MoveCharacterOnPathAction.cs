@@ -54,8 +54,8 @@ namespace btbrpg.fsn
                 }
             }
 
-			t += states.delta * speed;
-            rotT += states.delta * gridCharacter.rotateSpeed;
+			t += states.Delta * speed;
+            rotT += states.Delta * gridCharacter.rotateSpeed;
 
             if (rotT > 1)
 			{

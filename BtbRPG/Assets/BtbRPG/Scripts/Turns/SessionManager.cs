@@ -18,7 +18,16 @@ namespace btbrpg.turns
         public Transform gridObject;
 
         public GridManager gridManager;
-        public float delta;
+
+        private float delta;
+        public float Delta
+        {
+            get
+            {
+                return delta;
+            }
+        }
+
 
         bool isInit;
         bool isPathfinding;
@@ -138,22 +147,22 @@ namespace btbrpg.turns
 
         public void SetStanceForCurrentPlayer()
         {
-            if (turns[turnIndex].player.stateManager.currentCharacter == null)
+            if (turns[turnIndex].player.stateManager.CurrentCharacter == null)
                 return;
 
             switch (stanceInt.value)
             {
                 case 0:
-                    turns[turnIndex].player.stateManager.currentCharacter.SetNormal();
+                    turns[turnIndex].player.stateManager.CurrentCharacter.SetNormal();
                     break;
                 case 1:
-                    turns[turnIndex].player.stateManager.currentCharacter.SetCrouch();
+                    turns[turnIndex].player.stateManager.CurrentCharacter.SetCrouch();
                     break;
                 case 2:
-                    turns[turnIndex].player.stateManager.currentCharacter.SetRun();
+                    turns[turnIndex].player.stateManager.CurrentCharacter.SetRun();
                     break;
                 case 3:
-                    turns[turnIndex].player.stateManager.currentCharacter.SetProne();
+                    turns[turnIndex].player.stateManager.CurrentCharacter.SetProne();
                     break;
                 default:
                     break;

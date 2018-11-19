@@ -1643,6 +1643,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turns:
   - {fileID: 11400000, guid: 3eaddef454d4a12408343e6932d72187, type: 2}
+  - {fileID: 11400000, guid: 373064fbeadd56a4eb71478bdeae1c58, type: 2}
   gridObject: {fileID: 628209240}
   gridManager: {fileID: 1091287359}
   delta: 0
@@ -1732,6 +1733,34 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 468454, guid: 704795cfbb02b844591f900d2b76342e,
     type: 2}
   m_PrefabInternal: {fileID: 468976151}
+--- !u!1 &472228787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 472228788}
+  m_Layer: 0
+  m_Name: Rocks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &472228788
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 472228787}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 683961871}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &481815706
 Prefab:
   m_ObjectHideFlags: 0
@@ -2290,6 +2319,7 @@ Transform:
   m_Children:
   - {fileID: 1836588402}
   - {fileID: 909674835}
+  - {fileID: 472228788}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

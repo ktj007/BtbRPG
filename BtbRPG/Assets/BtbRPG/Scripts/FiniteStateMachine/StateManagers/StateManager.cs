@@ -18,11 +18,19 @@ namespace btbrpg.fsn
 
 		public Node currentNode;
         public Node prevNode;
-        public float delta;
+
+        private float delta;
+        public float Delta
+        {
+            get
+            {
+                return delta;
+            }
+        }
 
         public PlayerHolder playerHolder;
 
-        public GridCharacter currentCharacter;
+        private GridCharacter currentCharacter;
         public GridCharacter CurrentCharacter
         {
             get
@@ -53,7 +61,7 @@ namespace btbrpg.fsn
         // Do not use Update() here, as it is a turn-based game. Like this we can control, when the Tick() happens 
 		public void Tick(SessionManager sm, Turn turn)
 		{
-            delta = sm.delta;
+            delta = sm.Delta;
 
 			if (currentState != null)
 			{

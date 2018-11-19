@@ -19,6 +19,7 @@ namespace btbrpg.turns
 
 			Debug.Log("Idle Phase started");
 		}
+
 		public override void OnEndPhase(SessionManager sm, Turn turn)
 		{
 
