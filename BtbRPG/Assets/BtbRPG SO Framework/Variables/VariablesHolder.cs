@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using btbrpg.so.events;
+using UnityEngine;
 
 namespace btbrpg.so.variables
 {
@@ -7,11 +8,23 @@ namespace btbrpg.so.variables
 	{
 		public float cameraMoveSpeed = 15;
 
-		[Header("Scriptable Variables")]
-		#region Scriptables
+        [Header("Game Events")]
+        public GameEvent updateActionPoints;
+
+        [Header("Scriptable Variables")]
+        #region Scriptables
+        public StringVariable actionPointsText;
 		public TransformVariable cameraTransform;
 		public FloatVariable horizontalInput;
 		public FloatVariable verticalInput;
-		#endregion
-	}
+        #endregion
+
+        #region Methods
+        public void UpdateActionPoints(int ap)
+        {
+            actionPointsText.value = ap.ToString();
+            updateActionPoints.Raise();
+        }
+        #endregion
+    }
 }

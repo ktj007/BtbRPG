@@ -8,7 +8,7 @@ namespace btbrpg.turns
 		public override bool IsComplete(SessionManager sm, Turn turn)
 		{
 			turn.player.stateManager.Tick(sm, turn);
-			return true;
+			return false;
 		}
 
 		public override void OnStartPhase(SessionManager sm, Turn turn)

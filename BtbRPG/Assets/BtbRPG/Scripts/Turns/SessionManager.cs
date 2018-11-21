@@ -28,6 +28,7 @@ namespace btbrpg.turns
             }
         }
 
+        public VariablesHolder gameVariables;
 
         bool isInit;
         bool isPathfinding;

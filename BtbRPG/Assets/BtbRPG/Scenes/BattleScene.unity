@@ -729,7 +729,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 11400000, guid: 57110bd1964a1ed48b8071448d8ea38d, type: 2}
+  character: {fileID: 11400000, guid: 6768cf91a6164d247b52641a139e6aaf, type: 2}
   highlighter: {fileID: 285087381}
+  actionPoints: 0
   normalSpeed: 1
   crouchSpeed: 0.8
   runSpeed: 2.5
@@ -1646,7 +1648,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 373064fbeadd56a4eb71478bdeae1c58, type: 2}
   gridObject: {fileID: 628209240}
   gridManager: {fileID: 1091287359}
-  delta: 0
+  gameVariables: {fileID: 11400000, guid: 3667e4d179c6a9a4d981c2dfa856773d, type: 2}
   pathViz: {fileID: 761654326}
   stanceInt: {fileID: 11400000, guid: 540e48992b95870488220f868d042bb4, type: 2}
 --- !u!1 &448044413
@@ -7025,7 +7027,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 11400000, guid: 57110bd1964a1ed48b8071448d8ea38d, type: 2}
+  character: {fileID: 11400000, guid: 0d57397d01a6c0248a858e4c0e1b0e06, type: 2}
   highlighter: {fileID: 923631779}
+  actionPoints: 0
   normalSpeed: 1
   crouchSpeed: 0.8
   runSpeed: 2.5
@@ -7859,7 +7863,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 11400000, guid: 57110bd1964a1ed48b8071448d8ea38d, type: 2}
+  character: {fileID: 11400000, guid: d9cc8d4391ea1474bbc89dddf7d4a1c8, type: 2}
   highlighter: {fileID: 940310845}
+  actionPoints: 0
   normalSpeed: 1
   crouchSpeed: 0.8
   runSpeed: 2.5

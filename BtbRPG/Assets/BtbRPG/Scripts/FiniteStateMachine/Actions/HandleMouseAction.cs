@@ -23,22 +23,22 @@ namespace btbrpg.fsn
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, MAX_DISTANCE))
             {
-                Node n = sm.gridManager.GetNode(hit.point);
+                Node node = sm.gridManager.GetNode(hit.point);
                 IDetectable detectable = hit.transform.GetComponent<IDetectable>();
                 if (detectable != null)
                 {
-                    n = detectable.OnDetect();
+                    node = detectable.OnDetect();
                 }
 
-                if (n != null)
+                if (node != null)
                 {
-                    if (n.character != null)
+                    if (node.character != null)
                     {
                         //you highlighted your own unit
-                        if (n.character.owner == states.playerHolder)
+                        if (node.character.owner == states.playerHolder)
                         {
-                            n.character.OnHighlight(states.playerHolder);
-                            prevCharacter = n.character;
+                            node.character.OnHighlight(states.playerHolder);
+                            prevCharacter = node.character;
                             sm.ClearPath(states);
                         }
                         else //you highlighted an enemy unit
@@ -47,7 +47,7 @@ namespace btbrpg.fsn
                         }
                     }
 
-                    if (states.CurrentCharacter != null && n.character == null)
+                    if (states.CurrentCharacter != null && node.character == null)
                     {
                         if (mouseClick)
                         {
@@ -58,20 +58,22 @@ namespace btbrpg.fsn
                         }
                         else
                         {
-                            PathDetection(states, sm, n);
+                            PathDetection(states, sm, node);
                         }
                     }
                     else //No character selected
                     {
                         if (mouseClick)
                         {
-                            if (n.character != null)
+                            if (node.character != null)
                             {
-                                if (n.character.owner == states.playerHolder)
+                                if (node.character.owner == states.playerHolder)
                                 {
-                                    n.character.OnSelect(states.playerHolder);
+                                    node.character.OnSelect(states.playerHolder);
                                     states.prevNode = null;
                                     sm.ClearPath(states);
+
+                                    sm.gameVariables.UpdateActionPoints(node.character.actionPoints);
                                 }
                             }
                         }

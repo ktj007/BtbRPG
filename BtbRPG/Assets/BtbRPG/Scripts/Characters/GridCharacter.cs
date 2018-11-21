@@ -10,9 +10,13 @@ namespace btbrpg.characters
 	public class GridCharacter : MonoBehaviour, ISelectable
 	{
         public PlayerHolder owner;
+        public Character character;
 
         public GameObject highlighter;
         private bool isSelected;
+
+        [Header("Action Points")]
+        public int actionPoints;
 
         [Header("Character Speed Settings")]
         public float normalSpeed = 1f;
@@ -60,6 +64,12 @@ namespace btbrpg.characters
             animator = GetComponentInChildren<Animator>();
             animator.applyRootMotion = false;
         }
+
+        public void OnStartTurn()
+        {
+            actionPoints = character.StartingAP;
+        }
+
 
         public void SetCurrentPath(List<Node> path)
         {

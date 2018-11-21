@@ -13,4 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 11400000, guid: c2d3ea78205f1654783bfe9b401b3b45, type: 2}
   phases:
+  - {fileID: 11400000, guid: e90277ef965950a45ba5d81ed09845f4, type: 2}
   - {fileID: 11400000, guid: a1b31cf783b42cb4fbf529be80a4e35a, type: 2}
