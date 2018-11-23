@@ -11,5 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1458d06c601045a40918e7595c6c2f58, type: 3}
   m_Name: Local Player Two
   m_EditorClassIdentifier: 
+  isLocalPlayer: 1
   stateManagerPrefab: {fileID: 1125485538767794, guid: 272e456a07ad94041b23f64cbbebf4c9,
     type: 2}

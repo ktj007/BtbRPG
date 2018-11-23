@@ -72,7 +72,7 @@ namespace btbrpg.fsn
 				gridCharacter.currentNode.character = gridCharacter;
 
 			    gridCharacter.actionPoints--;
-			    if (gridCharacter.owner.isCurrentPlayer)
+			    if (gridCharacter.owner.isLocalPlayer)
 			    {
 			        sm.gameVariables.UpdateActionPoints(gridCharacter.actionPoints);
 			    }

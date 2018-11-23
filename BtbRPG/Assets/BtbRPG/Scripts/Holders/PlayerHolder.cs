@@ -13,7 +13,7 @@ namespace btbrpg.holders
     {
         [NonSerialized] public StateManager stateManager;
         [NonSerialized] private GameObject stateManagerObject;
-        public bool isCurrentPlayer;
+        public bool isLocalPlayer;
 
         [SerializeField] private GameObject stateManagerPrefab;
 
