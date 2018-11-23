@@ -33,7 +33,8 @@ namespace btbrpg.turns
         bool isInit;
         bool isPathfinding;
 
-        public LineRenderer pathViz;
+        public LineRenderer reachablePathViz;
+        public LineRenderer unreachablePathViz;
 
         #region Init
         private void Start()
@@ -92,31 +93,63 @@ namespace btbrpg.turns
             }
         }
 
-        void PathfinderCallback(List<Node> p, GridCharacter c)
+        void PathfinderCallback(List<Node> pathfinderPath, GridCharacter c)
         {
             isPathfinding = false;
-            if (p == null)
+            if (pathfinderPath == null)
             {
                 return;
             }
 
-            pathViz.positionCount = p.Count + 1; // +1 see below: one position added
-            List<Vector3> allPositions = new List<Vector3>();
-            Vector3 pathVizOffset = Vector3.up * LIFT_PATH_VIZ;
+            List<Node> currentPath = new List<Node>();
+            List<Vector3> reachablePositions = new List<Vector3>();
+            List<Vector3> unreachablePositions = new List<Vector3>();
+            Vector3 offset = Vector3.up * .1f;
 
-            allPositions.Add(c.currentNode.worldPosition + pathVizOffset); // ...one position added
-            for (int i = 0; i < p.Count; i++)
+            if (c.actionPoints > 0)
             {
-                allPositions.Add(p[i].worldPosition + pathVizOffset);
+                reachablePositions.Add(c.currentNode.worldPosition + offset);
             }
 
-            c.SetCurrentPath(p);
-            pathViz.SetPositions(allPositions.ToArray());
+            if (pathfinderPath.Count > c.actionPoints)
+            {
+                if (c.actionPoints == 0)
+                {
+                    unreachablePositions.Add(c.currentNode.worldPosition + offset);
+                }
+                else
+                {
+                    unreachablePositions.Add(pathfinderPath[c.actionPoints - 1].worldPosition + offset);
+                }
+            }
+
+            for (int i = 0; i < pathfinderPath.Count; i++)
+            {
+                if (i <= c.actionPoints - 1)
+                {
+                    currentPath.Add(pathfinderPath[i]);
+                    reachablePositions.Add(pathfinderPath[i].worldPosition + offset);
+                }
+                else
+                {
+                    unreachablePositions.Add(pathfinderPath[i].worldPosition + offset);
+                }
+            }
+
+            reachablePathViz.positionCount = currentPath.Count + 1;
+            reachablePathViz.SetPositions(reachablePositions.ToArray());
+            unreachablePathViz.positionCount = unreachablePositions.Count;
+            unreachablePathViz.SetPositions(unreachablePositions.ToArray());
+
+
+            c.SetCurrentPath(currentPath);
         }
 
         public void ClearPath(StateManager states)
         {
-            pathViz.positionCount = 0;
+            reachablePathViz.positionCount = 0;
+            unreachablePathViz.positionCount = 0;
+
             if (states.CurrentCharacter != null)
             {
                 states.CurrentCharacter.currentPath = null;
@@ -141,6 +174,11 @@ namespace btbrpg.turns
                 }
             }
         }
+
+        public void EndTurn()
+		{
+			turns[turnIndex].EndCurrentPhase();
+		}
         #endregion
 
         #region Events

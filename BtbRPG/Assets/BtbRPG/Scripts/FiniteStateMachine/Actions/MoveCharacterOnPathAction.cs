@@ -71,10 +71,16 @@ namespace btbrpg.fsn
 				gridCharacter.currentNode = targetNode;
 				gridCharacter.currentNode.character = gridCharacter;
 
-				index++;
+			    gridCharacter.actionPoints--;
+			    if (gridCharacter.owner.isCurrentPlayer)
+			    {
+			        sm.gameVariables.UpdateActionPoints(gridCharacter.actionPoints);
+			    }
+
+                index++;
 				if (index > states.CurrentCharacter.currentPath.Count - 1)
 				{
-					//We moved on to our path
+					// we moved onto our path...
 					t = 1;
 					index = 0;
 

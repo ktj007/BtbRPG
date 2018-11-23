@@ -40,6 +40,7 @@ namespace btbrpg.fsn
                             node.character.OnHighlight(states.playerHolder);
                             prevCharacter = node.character;
                             sm.ClearPath(states);
+                            sm.gameVariables.UpdateActionPoints(node.character.actionPoints);
                         }
                         else //you highlighted an enemy unit
                         {

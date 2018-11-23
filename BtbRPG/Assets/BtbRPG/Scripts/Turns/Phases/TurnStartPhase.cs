@@ -17,6 +17,11 @@ namespace btbrpg.turns
 			foreach (GridCharacter c in turn.player.characters)
 			{
 				c.OnStartTurn();
+
+			    if (turn.player.stateManager.CurrentCharacter == c)
+			    {
+                    sm.gameVariables.UpdateActionPoints(c.actionPoints);
+			    } 
 			}
 		}
 	}
